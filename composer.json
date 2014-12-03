@@ -1,0 +1,22 @@
+{
+	"name": "routz/routz",
+	"description": "PHP simple routing using the powerful http-foundation component",
+	"keywords": ["php", "routz", "routing", "httpfoundation", "symfony"],
+	"license": "MIT",
+	"autorhs": [
+		{
+			"name": "Alvaro Carneiro",
+			"email": "alv.ccbb@gmail.com"
+		}
+	],
+	"require": {
+		"php": ">=5.4.0",
+		"symfony/http-foundation": "*"
+	},
+	"autoload": {
+		"psr-0": {
+			"Routz": "src/"
+		}
+	},
+	"minimum-stability": "dev"
+}
