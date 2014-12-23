@@ -81,7 +81,7 @@ class Action {
 		// the callback to more than one route
 		$this->route = (array)$route;
 		
-		$this->callback = \Closure::bind($callback, $router);
+		$this->callback = \Closure::bind($callback, $router->context);
 	}
 	
 	/**
@@ -183,7 +183,7 @@ class Action {
 			throw new \InvalidArgumentException('The $callback parameter isn\'t valid.');
 		}
 		
-		$this->before[] = \Closure::bind($callback, $this->router);
+		$this->before[] = \Closure::bind($callback, $this->router->context);
 		
 		return $this;
 	}
@@ -202,7 +202,7 @@ class Action {
 			throw new \InvalidArgumentException('The $callback parameter isn\'t valid.');
 		}
 		
-		$this->after[] = \Closure::bind($callback, $this->router);
+		$this->after[] = \Closure::bind($callback, $this->router->context);
 		
 		return $this;
 	}

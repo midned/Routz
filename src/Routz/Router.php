@@ -37,6 +37,13 @@ class Router {
 	 * @var array
 	 */
 	protected $error_handlers;
+
+	/**
+	 * Context to pass to router actions
+	 *
+	 * @var object
+	 */
+	public $context;
 	
 	/**
 	 * List of callbacks assigned to certain request method
@@ -64,6 +71,7 @@ class Router {
 		}
 
 		$this->session = $session;
+		$this->context = $this;
 	}
 
 	/**
@@ -275,6 +283,21 @@ class Router {
 	}
 
 	/**
+	 * Change the context that will be used in router actions
+	 *
+	 * @param object $obj The object that will be used as context in the actions
+	 * 
+	 * @return void
+	 */
+	public function context($obj = null) {
+		if ( ! is_object($obj)) {
+			throw new \InvalidArgumentException('The $obj must be an object');
+		}
+
+		$this->context = $obj;
+	}
+
+	/**
 	 * Handle a request and return the response to be sent
 	 *
 	 * @param Symfony\Component\HttpFoundation\Request The request to be handled
@@ -402,7 +425,7 @@ class Router {
 		// handle mutliple http errors types
 		foreach ((array)$code as $status)
 		{
-			$this->error_handlers[(string)$status] = $handler;
+			$this->error_handlers[(string)$status] = \Closure::bind($handler, $this->context);
 		}
 	}
 	
